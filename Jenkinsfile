@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3'
+      image 'registry.cn-beijing.aliyuncs.com/liheng/maven-aliyun:3'
       args '-v /home/jenkins/.m2:/root/.m2:rw'
     }
 
@@ -12,12 +12,12 @@ pipeline {
         echo 'Building'
         sh 'mkdir -p /root/.m2/repository/org'
         sh 'echo `id` && echo `ls -al /root/.m2/`'
-        sh 'mvn clean package'
+        sh 'mvn clean package -Dmaven.test.skip=true'
       }
     }
     stage('Test') {
       steps {
-        echo 'Testing'
+        sh 'mvn test'
       }
     }
     stage('Deploy') {
