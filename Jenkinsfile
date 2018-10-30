@@ -10,6 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building'
+        sh 'echo `id` && echo \'ls -al /root/.m2/\''
         sh 'mvn clean package'
       }
     }
